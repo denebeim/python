@@ -257,22 +257,6 @@
         "documentation": {}
     },
     {
-        "label": "HttpResponse",
-        "importPath": "django.http",
-        "description": "django.http",
-        "isExtraImport": true,
-        "detail": "django.http",
-        "documentation": {}
-    },
-    {
-        "label": "home_page",
-        "importPath": "lists.views",
-        "description": "lists.views",
-        "isExtraImport": true,
-        "detail": "lists.views",
-        "documentation": {}
-    },
-    {
         "label": "home_page",
         "importPath": "lists.views",
         "description": "lists.views",
@@ -326,6 +310,14 @@
         "description": "django.urls",
         "isExtraImport": true,
         "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "views",
+        "importPath": "lists",
+        "description": "lists",
+        "isExtraImport": true,
+        "detail": "lists",
         "documentation": {}
     },
     {
@@ -467,7 +459,16 @@
         "kind": 6,
         "importPath": "lists.tests",
         "description": "lists.tests",
-        "peekOfCode": "class HomePageTest(TestCase):\n    def test_home_page_returns_correct_html(self):\n        response = self.client.get(\"/\")\n        self.assertTemplateUsed(response, \"home.html\")\n    def test_displays_all_list_items(self):\n        Item.objects.create(text=\"itemey 1\")\n        Item.objects.create(text=\"itemey 2\")\n        response=self.client.get(\"/\")\n        self.assertContains(response, \"itemey 1\")\n        self.assertContains(response, \"itemey 2\")",
+        "peekOfCode": "class HomePageTest(TestCase):\n    def test_home_page_returns_correct_html(self):\n        response = self.client.get(\"/\")\n        self.assertTemplateUsed(response, \"home.html\")\n    def test_can_save_a_POST_request(self):\n        response = self.client.post(\"/\", data={\"item_text\": \"A new list item\"})\n        self.assertEqual(Item.objects.count(), 1)\n        new_item = Item.objects.first()\n        self.assertEqual(new_item.text, \"A new list item\")\n    def test_redirects_after_POST(self):",
+        "detail": "lists.tests",
+        "documentation": {}
+    },
+    {
+        "label": "ListViewTest",
+        "kind": 6,
+        "importPath": "lists.tests",
+        "description": "lists.tests",
+        "peekOfCode": "class ListViewTest(TestCase):\n    def test_displays_all_list_items(self):\n        Item.objects.create(text=\"itemey 1\")\n        Item.objects.create(text=\"itemey 2\")\n        response = self.client.get(\"/lists/the-only-list-in-the-world/\")\n        self.assertContains(response, \"itemey 1\")\n        self.assertContains(response, \"itemey 2\")\nclass ItemModelTest(TestCase):\n    def test_saving_and_retrieving_items(self):\n        first_item = Item()",
         "detail": "lists.tests",
         "documentation": {}
     },
@@ -485,7 +486,16 @@
         "kind": 2,
         "importPath": "lists.views",
         "description": "lists.views",
-        "peekOfCode": "def home_page(request):\n    if request.method == \"POST\":\n        Item.objects.create(text=request.POST[\"item_text\"])\n        return redirect(\"/\")\n    items = Item.objects.all()\n    return render(request, \"home.html\", {\"items\": items})",
+        "peekOfCode": "def home_page(request):\n    if request.method == \"POST\":\n        Item.objects.create(text=request.POST[\"item_text\"])\n        return redirect(\"/lists/the-only-list-in-the-world/\")\n    items = Item.objects.all()\n    return render(request, \"home.html\", {\"items\": items})\ndef view_list(request):\n    items = Item.objects.all()\n    return render(request, \"home.html\", {\"items\": items})",
+        "detail": "lists.views",
+        "documentation": {}
+    },
+    {
+        "label": "view_list",
+        "kind": 2,
+        "importPath": "lists.views",
+        "description": "lists.views",
+        "peekOfCode": "def view_list(request):\n    items = Item.objects.all()\n    return render(request, \"home.html\", {\"items\": items})",
         "detail": "lists.views",
         "documentation": {}
     },
@@ -656,7 +666,7 @@
         "kind": 5,
         "importPath": "superlists.urls",
         "description": "superlists.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", home_page, name=\"home\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home_page, name=\"home\"),\n    path(\n        \"lists/the-only-list-in-the-world/\",\n        views.view_list,name=\"view_list\",\n    ),\n]",
         "detail": "superlists.urls",
         "documentation": {}
     },
