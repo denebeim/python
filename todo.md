@@ -1,6 +1,8 @@
 * ~~Don't save blank items for every request~~
 * ~~Code smell. POST test is too long?~~
-* Pass existing list items to the template somehow
-* Display multiple items in the table
+* ~~Pass existing list items to the template somehow~~
+* ~~Display multiple items in the table~~
+* Clean up after FT runs
+* Remove time.sleeps
 * Support more than one list
 

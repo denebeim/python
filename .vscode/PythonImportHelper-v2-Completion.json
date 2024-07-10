@@ -112,6 +112,55 @@
         "documentation": {}
     },
     {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "LiveServerTestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "webdriver",
+        "importPath": "selenium",
+        "description": "selenium",
+        "isExtraImport": true,
+        "detail": "selenium",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "Keys",
+        "importPath": "selenium.webdriver.common.keys",
+        "description": "selenium.webdriver.common.keys",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.keys",
+        "documentation": {}
+    },
+    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -208,14 +257,6 @@
         "documentation": {}
     },
     {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
         "label": "home_page",
         "importPath": "lists.views",
         "description": "lists.views",
@@ -288,48 +329,6 @@
         "documentation": {}
     },
     {
-        "label": "unittest",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "unittest",
-        "description": "unittest",
-        "detail": "unittest",
-        "documentation": {}
-    },
-    {
-        "label": "webdriver",
-        "importPath": "selenium",
-        "description": "selenium",
-        "isExtraImport": true,
-        "detail": "selenium",
-        "documentation": {}
-    },
-    {
-        "label": "By",
-        "importPath": "selenium.webdriver.common.by",
-        "description": "selenium.webdriver.common.by",
-        "isExtraImport": true,
-        "detail": "selenium.webdriver.common.by",
-        "documentation": {}
-    },
-    {
-        "label": "Keys",
-        "importPath": "selenium.webdriver.common.keys",
-        "description": "selenium.webdriver.common.keys",
-        "isExtraImport": true,
-        "detail": "selenium.webdriver.common.keys",
-        "documentation": {}
-    },
-    {
-        "label": "time",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "time",
-        "description": "time",
-        "detail": "time",
-        "documentation": {}
-    },
-    {
         "label": "Plugin",
         "kind": 6,
         "importPath": ".venv.bin.pydev",
@@ -399,6 +398,15 @@
         "description": ".venv.bin.pydev",
         "peekOfCode": "def main(plugins_dir: str, verify: bool = False, *args, **kwargs):\n    if verify:\n        if not docker_works():\n            logging.error('Docker does not seem to be installed, terminating')\n            exit(1)\n        if not docker_compose_works():\n            logging.error('Docker compose does not seem to be installed, terminating')\n            exit(1)\n    logging.debug('Creating plugins dir at %s', plugins_dir)\n    os.makedirs(plugins_dir, exist_ok=True)",
         "detail": ".venv.bin.pydev",
+        "documentation": {}
+    },
+    {
+        "label": "NewVisitorTest",
+        "kind": 6,
+        "importPath": "functional_tests.tests",
+        "description": "functional_tests.tests",
+        "peekOfCode": "class NewVisitorTest(LiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n    def tearDown(self):\n        self.browser.quit()\n    def check_for_row_in_list_table(self, row_text):\n        table = self.browser.find_element(By.ID, \"id_list_table\")\n        rows = table.find_elements(By.TAG_NAME, \"tr\")\n        self.assertIn(row_text, [row.text for row in rows])\n    def test_can_start_a_todo_list(self):",
+        "detail": "functional_tests.tests",
         "documentation": {}
     },
     {
@@ -642,15 +650,6 @@
         "description": "superlists.wsgi",
         "peekOfCode": "application = get_wsgi_application()",
         "detail": "superlists.wsgi",
-        "documentation": {}
-    },
-    {
-        "label": "NewVisitorTest",
-        "kind": 6,
-        "importPath": "functional_test",
-        "description": "functional_test",
-        "peekOfCode": "class NewVisitorTest(unittest.TestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n    def tearDown(self):\n        self.browser.quit()\n    def check_for_row_in_list_table(self, row_text):\n        table = self.browser.find_element(By.ID, \"id_list_table\")\n        rows = table.find_elements(By.TAG_NAME, \"tr\")\n        self.assertIn(row_text, [row.text for row in rows])\n    def test_can_start_a_todo_list(self):",
-        "detail": "functional_test",
         "documentation": {}
     },
     {
