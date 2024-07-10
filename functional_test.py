@@ -49,14 +49,14 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        # When she hits enter, the page updates, and now the page lists
-        # "1: Buy peacock feathers" as an item in a to-do list
-        inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
-        self.fail("Finish the test")
-
         # The page updates again and now shows both items on her list
+        table = self.browser.find_element(By.ID, "id_list_table")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+        self.assertIn(
+            "2. Use peacock feathers to make a fly", [row.text for row in rows]
+        )
 
+        self.fail("Finish the test")
         # Satisfied, she goes back to sleep
 
 
