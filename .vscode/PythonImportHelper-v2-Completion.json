@@ -413,7 +413,16 @@
         "kind": 6,
         "importPath": "functional_tests.tests",
         "description": "functional_tests.tests",
-        "peekOfCode": "class NewVisitorTest(LiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n    def tearDown(self):\n        self.browser.quit()\n    def wait_for_row_in_list_table(self, row_text):\n        start_time=time.time()\n        while True:\n            try:\n                table = self.browser.find_element(By.ID, \"id_list_table\")",
+        "peekOfCode": "class NewVisitorTest(LiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n    def tearDown(self):\n        self.browser.quit()\n    def wait_for_row_in_list_table(self, row_text):\n        start_time = time.time()\n        while True:\n            try:\n                table = self.browser.find_element(By.ID, \"id_list_table\")",
+        "detail": "functional_tests.tests",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_WAIT",
+        "kind": 5,
+        "importPath": "functional_tests.tests",
+        "description": "functional_tests.tests",
+        "peekOfCode": "MAX_WAIT = 5\nclass NewVisitorTest(LiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n    def tearDown(self):\n        self.browser.quit()\n    def wait_for_row_in_list_table(self, row_text):\n        start_time = time.time()\n        while True:\n            try:",
         "detail": "functional_tests.tests",
         "documentation": {}
     },
