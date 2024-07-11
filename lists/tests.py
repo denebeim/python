@@ -25,8 +25,7 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, "list.html")
 
     def test_displays_all_list_items(self):
-        mylist = List()
-        mylist.save()
+        mylist = List.objects.create()
         Item.objects.create(text="itemey 1", list=mylist)
         Item.objects.create(text="itemey 2", list=mylist)
         response = self.client.get("/lists/the-only-list-in-the-world/")
@@ -36,8 +35,7 @@ class ListViewTest(TestCase):
 
 class ListAndItemModelTest(TestCase):
     def test_saving_and_retrieving_items(self):
-        mylist = List()
-        mylist.save()
+        mylist = List.objects.create()
 
         first_item = Item()
         first_item.text = "The first (ever) list item"

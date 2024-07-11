@@ -579,7 +579,7 @@
         "kind": 6,
         "importPath": "lists.tests",
         "description": "lists.tests",
-        "peekOfCode": "class ListAndItemModelTest(TestCase):\n    def test_saving_and_retrieving_items(self):\n        mylist = List()\n        mylist.save()\n        first_item = Item()\n        first_item.text = \"The first (ever) list item\"\n        first_item.list = mylist\n        first_item.save()\n        second_item = Item()\n        second_item.text = \"Item the second\"",
+        "peekOfCode": "class ListAndItemModelTest(TestCase):\n    def test_saving_and_retrieving_items(self):\n        mylist = List.objects.create()\n        first_item = Item()\n        first_item.text = \"The first (ever) list item\"\n        first_item.list = mylist\n        first_item.save()\n        second_item = Item()\n        second_item.text = \"Item the second\"\n        second_item.list = mylist",
         "detail": "lists.tests",
         "documentation": {}
     },
