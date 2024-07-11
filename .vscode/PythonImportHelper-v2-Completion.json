@@ -201,11 +201,52 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
         "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
         "documentation": {}
     },
     {
@@ -233,12 +274,61 @@
         "documentation": {}
     },
     {
-        "label": "urllib",
+        "label": "lists",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "urllib",
-        "description": "urllib",
-        "detail": "urllib",
+        "importPath": "lists",
+        "description": "lists",
+        "detail": "lists",
+        "documentation": {}
+    },
+    {
+        "label": "views",
+        "importPath": "lists",
+        "description": "lists",
+        "isExtraImport": true,
+        "detail": "lists",
+        "documentation": {}
+    },
+    {
+        "label": "lists.models",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "lists.models",
+        "description": "lists.models",
+        "detail": "lists.models",
+        "documentation": {}
+    },
+    {
+        "label": "Item",
+        "importPath": "lists.models",
+        "description": "lists.models",
+        "isExtraImport": true,
+        "detail": "lists.models",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "lists.models",
+        "description": "lists.models",
+        "isExtraImport": true,
+        "detail": "lists.models",
+        "documentation": {}
+    },
+    {
+        "label": "Item",
+        "importPath": "lists.models",
+        "description": "lists.models",
+        "isExtraImport": true,
+        "detail": "lists.models",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "lists.models",
+        "description": "lists.models",
+        "isExtraImport": true,
+        "detail": "lists.models",
         "documentation": {}
     },
     {
@@ -274,22 +364,6 @@
         "documentation": {}
     },
     {
-        "label": "Item",
-        "importPath": "lists.models",
-        "description": "lists.models",
-        "isExtraImport": true,
-        "detail": "lists.models",
-        "documentation": {}
-    },
-    {
-        "label": "Item",
-        "importPath": "lists.models",
-        "description": "lists.models",
-        "isExtraImport": true,
-        "detail": "lists.models",
-        "documentation": {}
-    },
-    {
         "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -319,14 +393,6 @@
         "description": "django.urls",
         "isExtraImport": true,
         "detail": "django.urls",
-        "documentation": {}
-    },
-    {
-        "label": "views",
-        "importPath": "lists",
-        "description": "lists",
-        "isExtraImport": true,
-        "detail": "lists",
         "documentation": {}
     },
     {
@@ -446,6 +512,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "lists.migrations.0003_list",
+        "description": "lists.migrations.0003_list",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('lists', '0002_item_text'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='List',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n            ],",
+        "detail": "lists.migrations.0003_list",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "lists.migrations.0004_item_list",
+        "description": "lists.migrations.0004_item_list",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('lists', '0003_list'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='item',\n            name='list',\n            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='lists.list'),\n        ),",
+        "detail": "lists.migrations.0004_item_list",
+        "documentation": {}
+    },
+    {
         "label": "ListsConfig",
         "kind": 6,
         "importPath": "lists.apps",
@@ -455,11 +539,20 @@
         "documentation": {}
     },
     {
+        "label": "List",
+        "kind": 6,
+        "importPath": "lists.models",
+        "description": "lists.models",
+        "peekOfCode": "class List(models.Model):\n    pass\nclass Item(models.Model):\n    text = models.TextField(default=\"\")\n    list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)",
+        "detail": "lists.models",
+        "documentation": {}
+    },
+    {
         "label": "Item",
         "kind": 6,
         "importPath": "lists.models",
         "description": "lists.models",
-        "peekOfCode": "class Item(models.Model):\n    text=models.TextField(default='')",
+        "peekOfCode": "class Item(models.Model):\n    text = models.TextField(default=\"\")\n    list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)",
         "detail": "lists.models",
         "documentation": {}
     },
@@ -468,7 +561,7 @@
         "kind": 6,
         "importPath": "lists.tests",
         "description": "lists.tests",
-        "peekOfCode": "class HomePageTest(TestCase):\n    def test_can_save_a_POST_request(self):\n        self.client.post(\"/lists/new\", data={\"item_text\": \"A new list item\"})\n        self.assertEqual(Item.objects.count(), 1)\n        new_item = Item.objects.get()\n        self.assertEqual(new_item.text, \"A new list item\")\n    def test_redirects_after_POST(self):\n        response = self.client.post(\"/lists/new\", data={\"item_text\": \"A new list item\"})\n        self.assertRedirects(response, \"/lists/the-only-list-in-the-world/\")\nclass ListViewTest(TestCase):",
+        "peekOfCode": "class HomePageTest(TestCase):\n    def test_redirects_after_POST(self):\n        response = self.client.post(\"/lists/new\", data={\"item_text\": \"A new list item\"})\n        self.assertRedirects(response, \"/lists/the-only-list-in-the-world/\")\nclass ListViewTest(TestCase):\n    def test_can_save_a_POST_request(self):\n        response = self.client.post(\"/lists/new\", data={\"item_text\": \"A new list item\"})\n        self.assertEqual(Item.objects.count(), 1)\n        new_item = Item.objects.first()\n        self.assertEqual(new_item.text, \"A new list item\")",
         "detail": "lists.tests",
         "documentation": {}
     },
@@ -477,16 +570,16 @@
         "kind": 6,
         "importPath": "lists.tests",
         "description": "lists.tests",
-        "peekOfCode": "class ListViewTest(TestCase):\n    def test_can_save_a_POST_request(self):\n        response = self.client.post(\"/\", data={\"item_text\": \"A new list item\"})\n        self.assertEqual(Item.objects.count(), 1)\n        new_item = Item.objects.first()\n        self.assertEqual(new_item.text, \"A new list item\")\n    def test_uses_list_template(self):\n        response = self.client.get(\"/lists/the-only-list-in-the-world/\")\n        self.assertTemplateUsed(response, \"list.html\")\n    def test_displays_all_list_items(self):",
+        "peekOfCode": "class ListViewTest(TestCase):\n    def test_can_save_a_POST_request(self):\n        response = self.client.post(\"/lists/new\", data={\"item_text\": \"A new list item\"})\n        self.assertEqual(Item.objects.count(), 1)\n        new_item = Item.objects.first()\n        self.assertEqual(new_item.text, \"A new list item\")\n    def test_uses_list_template(self):\n        response = self.client.get(\"/lists/the-only-list-in-the-world/\")\n        self.assertTemplateUsed(response, \"list.html\")\n    def test_displays_all_list_items(self):",
         "detail": "lists.tests",
         "documentation": {}
     },
     {
-        "label": "ItemModelTest",
+        "label": "ListAndItemModelTest",
         "kind": 6,
         "importPath": "lists.tests",
         "description": "lists.tests",
-        "peekOfCode": "class ItemModelTest(TestCase):\n    def test_saving_and_retrieving_items(self):\n        first_item = Item()\n        first_item.text = \"The first (ever) list item\"\n        first_item.save()\n        second_item = Item()\n        second_item.text = \"Item the second\"\n        second_item.save()\n        saved_items = Item.objects.all()\n        self.assertEqual(saved_items.count(), 2)",
+        "peekOfCode": "class ListAndItemModelTest(TestCase):\n    def test_saving_and_retrieving_items(self):\n        mylist = List()\n        mylist.save()\n        first_item = Item()\n        first_item.text = \"The first (ever) list item\"\n        first_item.list = mylist\n        first_item.save()\n        second_item = Item()\n        second_item.text = \"Item the second\"",
         "detail": "lists.tests",
         "documentation": {}
     },
@@ -495,7 +588,7 @@
         "kind": 2,
         "importPath": "lists.views",
         "description": "lists.views",
-        "peekOfCode": "def home_page(request):\n    return render(request, \"home.html\")\ndef view_list(request):\n    items = Item.objects.all()\n    return render(request, \"list.html\", {\"items\": items})\ndef new_list(request):\n    Item.objects.create(text=request.POST[\"item_text\"])\n    return redirect(\"/lists/the-only-list-in-the-world/\")",
+        "peekOfCode": "def home_page(request):\n    return render(request, \"home.html\")\ndef view_list(request):\n    items = Item.objects.all()\n    return render(request, \"list.html\", {\"items\": items})\ndef new_list(request):\n    nulist=List.objects.create()\n    Item.objects.create(text=request.POST[\"item_text\"],list=nulist)\n    return redirect(\"/lists/the-only-list-in-the-world/\")",
         "detail": "lists.views",
         "documentation": {}
     },
@@ -504,7 +597,7 @@
         "kind": 2,
         "importPath": "lists.views",
         "description": "lists.views",
-        "peekOfCode": "def view_list(request):\n    items = Item.objects.all()\n    return render(request, \"list.html\", {\"items\": items})\ndef new_list(request):\n    Item.objects.create(text=request.POST[\"item_text\"])\n    return redirect(\"/lists/the-only-list-in-the-world/\")",
+        "peekOfCode": "def view_list(request):\n    items = Item.objects.all()\n    return render(request, \"list.html\", {\"items\": items})\ndef new_list(request):\n    nulist=List.objects.create()\n    Item.objects.create(text=request.POST[\"item_text\"],list=nulist)\n    return redirect(\"/lists/the-only-list-in-the-world/\")",
         "detail": "lists.views",
         "documentation": {}
     },
@@ -513,7 +606,7 @@
         "kind": 2,
         "importPath": "lists.views",
         "description": "lists.views",
-        "peekOfCode": "def new_list(request):\n    Item.objects.create(text=request.POST[\"item_text\"])\n    return redirect(\"/lists/the-only-list-in-the-world/\")",
+        "peekOfCode": "def new_list(request):\n    nulist=List.objects.create()\n    Item.objects.create(text=request.POST[\"item_text\"],list=nulist)\n    return redirect(\"/lists/the-only-list-in-the-world/\")",
         "detail": "lists.views",
         "documentation": {}
     },
