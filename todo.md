@@ -5,7 +5,7 @@
 * ~~Clean up after FT runs~~
 * ~~Remove time.sleeps~~
 * Support more than one list
-* Adjust model so that items are associated with different lists
+* ~~Adjust model so that items are associated with different lists~~
 * Add unique URLs for each list
 * ~~Add a URL for creating a new list via POST~~
 * Add URLs for adding a new item to an existing list via POST
