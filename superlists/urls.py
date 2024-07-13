@@ -10,7 +10,7 @@ urlpatterns = [
         name="new_list",
     ),
     path(
-        "lists/the-only-list-in-the-world/",
+        "lists/<int:list_id>/",
         views.view_list,
         name="view_list",
     ),

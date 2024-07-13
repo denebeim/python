@@ -1,8 +1,5 @@
 from django.db import models
 
-import lists
-import lists.models
-
 
 # Create your models here.
 class List(models.Model):
