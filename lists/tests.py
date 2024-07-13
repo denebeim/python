@@ -1,5 +1,3 @@
-import pprint
-from re import L
 from urllib import request, response
 from django.http import HttpRequest
 from django.test import TestCase

@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render
 
 from lists.models import Item, List
-import urllib
 
 
 # Create your views here.

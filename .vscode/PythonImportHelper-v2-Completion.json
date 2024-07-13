@@ -86,14 +86,6 @@
         "documentation": {}
     },
     {
-        "label": "L",
-        "importPath": "re",
-        "description": "re",
-        "isExtraImport": true,
-        "detail": "re",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
@@ -306,24 +298,6 @@
         "documentation": {}
     },
     {
-        "label": "pprint",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pprint",
-        "description": "pprint",
-        "detail": "pprint",
-        "documentation": {}
-    },
-    {
-        "label": "urllib",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "urllib",
-        "description": "urllib",
-        "detail": "urllib",
-        "documentation": {}
-    },
-    {
         "label": "request",
         "importPath": "urllib",
         "description": "urllib",
@@ -388,6 +362,46 @@
         "documentation": {}
     },
     {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "include",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "views",
+        "importPath": "lists",
+        "description": "lists",
+        "isExtraImport": true,
+        "detail": "lists",
+        "documentation": {}
+    },
+    {
+        "label": "views",
+        "importPath": "lists",
+        "description": "lists",
+        "isExtraImport": true,
+        "detail": "lists",
+        "documentation": {}
+    },
+    {
         "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -409,22 +423,6 @@
         "description": "django.core.asgi",
         "isExtraImport": true,
         "detail": "django.core.asgi",
-        "documentation": {}
-    },
-    {
-        "label": "path",
-        "importPath": "django.urls",
-        "description": "django.urls",
-        "isExtraImport": true,
-        "detail": "django.urls",
-        "documentation": {}
-    },
-    {
-        "label": "views",
-        "importPath": "lists",
-        "description": "lists",
-        "isExtraImport": true,
-        "detail": "lists",
         "documentation": {}
     },
     {
@@ -634,6 +632,15 @@
         "documentation": {}
     },
     {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "lists.urls",
+        "description": "lists.urls",
+        "peekOfCode": "urlpatterns = [\n    path(\n        \"new\",\n        views.new_list,\n        name=\"new_list\",\n    ),\n    path(\n        \"<int:list_id>/\",\n        views.view_list,\n        name=\"view_list\",",
+        "detail": "lists.urls",
+        "documentation": {}
+    },
+    {
         "label": "home_page",
         "kind": 2,
         "importPath": "lists.views",
@@ -836,7 +843,7 @@
         "kind": 5,
         "importPath": "superlists.urls",
         "description": "superlists.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home_page, name=\"home\"),\n    path(\n        \"lists/new\",\n        views.new_list,\n        name=\"new_list\",\n    ),\n    path(\n        \"lists/<int:list_id>/\",\n        views.view_list,",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home_page, name=\"home\"),\n    path(\"lists/\", include(\"lists.urls\")),\n]",
         "detail": "superlists.urls",
         "documentation": {}
     },
