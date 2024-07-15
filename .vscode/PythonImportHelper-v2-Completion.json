@@ -510,7 +510,7 @@
         "kind": 6,
         "importPath": "functional_tests.tests",
         "description": "functional_tests.tests",
-        "peekOfCode": "class NewVisitorTest(StaticLiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n    def tearDown(self):\n        self.browser.quit()\n    def wait_for_row_in_list_table(self, row_text):\n        start_time = time.time()\n        while True:\n            try:\n                table = self.browser.find_element(By.ID, \"id_list_table\")",
+        "peekOfCode": "class NewVisitorTest(StaticLiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n        test_server=os.environ.get(\"TEST_SERVER\")\n        if test_server:\n            self.live_server_url=\"http://\"+test_server\n    def tearDown(self):\n        self.browser.quit()\n    def wait_for_row_in_list_table(self, row_text):\n        start_time = time.time()",
         "detail": "functional_tests.tests",
         "documentation": {}
     },
@@ -519,7 +519,7 @@
         "kind": 5,
         "importPath": "functional_tests.tests",
         "description": "functional_tests.tests",
-        "peekOfCode": "MAX_WAIT = 5\nclass NewVisitorTest(StaticLiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n    def tearDown(self):\n        self.browser.quit()\n    def wait_for_row_in_list_table(self, row_text):\n        start_time = time.time()\n        while True:\n            try:",
+        "peekOfCode": "MAX_WAIT = 5\nclass NewVisitorTest(StaticLiveServerTestCase):\n    def setUp(self):\n        self.browser = webdriver.Firefox()\n        test_server=os.environ.get(\"TEST_SERVER\")\n        if test_server:\n            self.live_server_url=\"http://\"+test_server\n    def tearDown(self):\n        self.browser.quit()\n    def wait_for_row_in_list_table(self, row_text):",
         "detail": "functional_tests.tests",
         "documentation": {}
     },
