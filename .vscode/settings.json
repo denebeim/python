@@ -10,5 +10,6 @@
         ".",
         "-p",
         "*test*.py"
-    ]
+    ],
+    "ansible.python.interpreterPath": "/home/denebeim/learning/python/goat/.venv/bin/python"
 }
