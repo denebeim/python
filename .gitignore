@@ -633,3 +633,7 @@ flycheck_*.el
 
 /static
 src/static
+ansible.cfg
+collections
+roles
+
