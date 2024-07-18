@@ -5,7 +5,8 @@ db.sqlite3
 ansible.cfg
 .idea
 .vscode
-
+goat.iml
+ 
 collections
 
 # Byte-compiled / optimized / DLL files
