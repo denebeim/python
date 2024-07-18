@@ -1,6 +1,13 @@
 *.Pyc
 db.sqlite3
 .envrc
+.venv
+ansible.cfg
+.idea
+.vscode
+
+collections
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -630,10 +637,8 @@ flycheck_*.el
 # network security
 /network-security.data
 
-
 /static
 src/static
 ansible.cfg
 collections
 roles
-
