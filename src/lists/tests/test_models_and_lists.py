@@ -5,6 +5,10 @@ from lists.models import Item, List
 
 
 class ListAndItemModelTest(TestCase):
+    def test_get_absolute_url(self):
+        mylist = List.objects.create()
+        self.assertEqual(mylist.get_absolute_url(), f"/lists/{mylist.id}/")
+
     def test_can_save_a_POST_request(self):
         self.client.post("/lists/new", data={"item_text": "A new list item"})
         self.assertEqual(Item.objects.count(), 1)
@@ -26,6 +30,8 @@ class ListAndItemModelTest(TestCase):
         )
         self.assertRedirects(response, f"/lists/{correct_list.id}/")
 
+
+class TestModels(TestCase):
     def test_cannot_save_empty_list_items(self):
         mylist = List.objects.create()
         item = Item(list=mylist, text="")
