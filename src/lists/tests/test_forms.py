@@ -1,9 +1,11 @@
 from django.test import TestCase
-from lists.forms import ItemForm, EMPTY_ITEM_ERROR
+
+from lists.forms import EMPTY_ITEM_ERROR, ItemForm
 
 
 class ItemFormTest(TestCase):
-    def test_form_renders_item_text_input(self):
+
+    def test_form_renders_text_input(self):
         form = ItemForm()
         self.assertIn('placeholder="Enter a to-do item', form.as_p())
         self.assertIn('class="form-control form-control-lg', form.as_p())

@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 
-from lists.models import Item, List
-from lists.forms import ItemForm
+from .forms import ItemForm
+from .models import Item, List
 
 
 # Create your views here.
@@ -16,7 +16,7 @@ def view_list(request, list_id):
 
     if request.method == "POST":
         try:
-            item = Item.objects.create(text=request.POST["item_text"], list=our_list)
+            item = Item.objects.create(text=request.POST["text"], list=our_list)
             item.full_clean()
             item.save()
             return redirect(our_list)
@@ -29,7 +29,7 @@ def view_list(request, list_id):
 
 def new_list(request):
     nulist = List.objects.create()
-    item = Item.objects.create(text=request.POST["item_text"], list=nulist)
+    item = Item.objects.create(text=request.POST["text"], list=nulist)
     try:
         item.full_clean()
     except ValidationError:

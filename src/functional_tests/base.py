@@ -37,3 +37,6 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def wait_for_row_in_list_table(self, row_text):
         return self.wait_for(lambda: self.row_in_list_table(row_text))
+
+    def get_item_input_box(self):
+        return self.browser.find_element(By.ID, "id_text")
