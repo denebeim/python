@@ -1,58 +1,59 @@
-describe('Player', function() {
-  let player;
-  let song;
+console.log("Spec.js loading");
 
-  beforeEach(function() {
-    player = new Player();
-    song = new Song();
+describe("Superlists tests", () => {
+  let testDiv;
+
+  beforeEach(() => {
+    console.log("beforeEach")
+    testDiv = document.createElement("div");
+    testDiv.innerHTML = `  
+      <form>
+        <input
+          id="id_text"
+          name="text"
+          class="form-control form-control-lg is-invalid"
+          placeholder="Enter a to-do item"
+          value="Value as submitted"
+          aria-describedby="id_text_feedback"
+          required
+        />
+        <div id="id_text_feedback" class="invalid-feedback">An error message</div>
+      </form>
+    `
+    document.body.appendChild(testDiv);
   });
 
-  it('should be able to play a Song', function() {
-    player.play(song);
-    expect(player.currentlyPlayingSong).toEqual(song);
-
-    // demonstrates use of custom matcher
-    expect(player).toBePlaying(song);
+  afterEach(() => {
+    testDiv.remove();
   });
 
-  describe('when song has been paused', function() {
-    beforeEach(function() {
-      player.play(song);
-      player.pause();
-    });
 
-    it('should indicate that the song is currently paused', function() {
-      expect(player.isPlaying).toBeFalsy();
-
-      // demonstrates use of 'not' with a custom matcher
-      expect(player).not.toBePlaying(song);
-    });
-
-    it('should be possible to resume', function() {
-      player.resume();
-      expect(player.isPlaying).toBeTruthy();
-      expect(player.currentlyPlayingSong).toEqual(song);
-    });
+  it("sense-check our html fixture", () => {
+    console.log("in test 1");
+    const errorMsg = document.querySelector(".invalid-feedback");
+    expect(errorMsg.checkVisibility()).toBe(true);
   });
 
-  // demonstrates use of spies to intercept and test method calls
-  it('tells the current song if the user has made it a favorite', function() {
-    spyOn(song, 'persistFavoriteStatus');
-
-    player.play(song);
-    player.makeFavorite();
-
-    expect(song.persistFavoriteStatus).toHaveBeenCalledWith(true);
+  it("check we know how to hide things", () => {
+    console.log("in test 2");
+    const errorMsg = document.querySelector(".invalid-feedback");
+    errorMsg.style.display = "none";
+    expect(errorMsg.checkVisibility()).toBe(false);
   });
 
-  //demonstrates use of expected exceptions
-  describe('#resume', function() {
-    it('should throw an exception if song is already playing', function() {
-      player.play(song);
+  it("error message should be hidden on input", () => {
+    const textInput = document.querySelector("#id_text");
+    const errorMsg = document.querySelector(".invalid-feedback");
 
-      expect(function() {
-        player.resume();
-      }).toThrowError('song is already playing');
-    });
+    initialize();
+    textInput.dispatchEvent(new InputEvent("input"));
+
+    expect(errorMsg.checkVisibility()).toBe(false);
+  });
+
+  it("error message should not be hidden before input is fired", () => {
+    const errorMsg = document.querySelector(".invalid-feedback");
+    initialize();
+    expect(errorMsg.checkVisibility()).toBe(true);
   });
 });
