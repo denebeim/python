@@ -19,20 +19,13 @@
           <form class="was-validated"
             method="POST"
             action="{% block form_action %}
+
             {% endblock %}">
             {% csrf_token %}
 
-            <input
-              id="id_text"
-              name="text"
-              class="form-control
+            <input id="id_text" name="text" class="form-control
                     form-control-lg
-                    {% if form.errors %}is-invalid{% endif %}"
-              placeholder="Enter a to-do item"
-              value="{{ form.text.value }}"
-              aria-describedby="id_text_feedback"
-              required
-            />
+                    {% if form.errors %}is-invalid{% endif %}" placeholder="Enter a to-do item" value="{{ form.text.value }}" aria-describedby="id_text_feedback" required />
 
             {% if form.errors %}
               <div class="invalid-feedback">{{ form.errors.text.0 }}</div>
@@ -50,7 +43,9 @@
     </div>
     <script src="/static/lists.js"></script>
     <script>
-      initialize("#id_text",".invalid-feedback")
+      window.onload = () => {
+        initialize('#id_text')
+      }
     </script>
   </body>
 </html>
