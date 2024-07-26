@@ -31,10 +31,6 @@ else:
     DEBUG = True
     ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL="accounts.User"
-AUTHENTICATION_BACKENDS=[
-    "accounts.authentication.PasswordlessAuthenticationBackend"
-]
 
 LOGGING = {
     "version": 1,
@@ -61,7 +57,10 @@ INSTALLED_APPS = [
     "accounts",
 ]
 
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL="accounts.user"
+AUTHENTICATION_BACKENDS = [
+    "accounts.authentication.PasswordlessAuthenticationBackend",
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -149,3 +148,9 @@ STATIC_ROOT = BASE_DIR / "static"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "denebeim@gmail.com"
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
