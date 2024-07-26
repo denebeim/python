@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     "accounts",
 ]
 
-AUTH_USER_MODEL="accounts.user"
+AUTH_USER_MODEL = "accounts.user"
 AUTHENTICATION_BACKENDS = [
     "accounts.authentication.PasswordlessAuthenticationBackend",
 ]
@@ -94,7 +94,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "superlists.wsgi.application"
-
+SESSION_COOKIE_NAME = "superlists"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
