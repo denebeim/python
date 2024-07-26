@@ -1,4 +1,4 @@
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -9,9 +9,9 @@ from accounts.models import Token
 def send_login_email(request):
     email = request.POST["email"]
     print(type(send_mail))
-    token=Token.objects.create(email=email)
-    url=request.build_absolute_uri(
-        reverse("login")+"?token="+str(token.uid),
+    token = Token.objects.create(email=email)
+    url = request.build_absolute_uri(
+        reverse("login") + "?token=" + str(token.uid),
     )
     message_body = f"Use this link to log in:\n\n{url}"
     send_mail(
@@ -30,4 +30,7 @@ def send_login_email(request):
 
 
 def login(request):
+    user = auth.authenticate(uid=request.GET.get("token"))
+    if user:
+        auth.login(request, user)
     return redirect("/")
