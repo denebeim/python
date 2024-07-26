@@ -1,6 +1,7 @@
 from unittest import mock
 
 from django.test import TestCase
+from accounts.models import Token
 
 
 class SendLoginEmailViewTest(TestCase):
@@ -35,6 +36,25 @@ class SendLoginEmailViewTest(TestCase):
             "Check your email, we've sent you a link you can use to log.",
         )
         self.assertEqual(message.tags, "success")
+
+    def test_creates_token_associated_with_email(self):
+        response = self.client.post(
+            "/accounts/send_login_email", data={"email": "edith@example.com"}
+        )
+        token = Token.objects.get()
+        self.assertEqual(token.email, "edith@example.com")
+
+    @mock.patch("accounts.views.send_mail")
+    def test_sends_link_to_login_using_token_uuid(self, mock_send_mail):
+        response = self.client.post(
+            "/accounts/send_login_email", data={"email": "edith@example.com"}
+        )
+        token = Token.objects.get()
+        expected_url = f"http://testserver/accounts/login?token={token.uid}"
+        (subject, body, from_email, to_list), kwargs = (
+            mock_send_mail.call_args
+        )
+        self.assertIn(expected_url, body)
 
 
 class LoginViewTest(TestCase):
