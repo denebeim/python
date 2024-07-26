@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if "DJANGO_DEBUG_FALSE" in os.environ:
     SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
     DEBUG = False
-    ALLOWED_HOSTS=[os.environ["DJANGO_ALLOWED_HOSTS"]]
+    ALLOWED_HOSTS = [os.environ["DJANGO_ALLOWED_HOSTS"]]
 else:
     SECRET_KEY = "django-insecure--at#+pdndd$p9w%w2-xedgwuzbhwh(ejy#6fdap(ztt8qyos&3"
     DEBUG = True
@@ -53,7 +53,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "lists",
+    "accounts",
 ]
+
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
