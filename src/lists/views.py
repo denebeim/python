@@ -22,13 +22,17 @@ def new_list(request):
 
 def view_list(request, list_id):
     our_list = List.objects.get(id=list_id)
-    form=ExistingListItemForm(for_list=our_list)
+    form = ExistingListItemForm(for_list=our_list)
 
     if request.method == "POST":
-        form = ExistingListItemForm(for_list=our_list,data=request.POST)
+        form = ExistingListItemForm(for_list=our_list, data=request.POST)
         if form.is_valid():
             form.save()
             return redirect(our_list)
     else:
         form = ExistingListItemForm(for_list=our_list)
     return render(request, "list.html", {"list": our_list, "form": form})
+
+
+def my_lists(request, email):
+    return render(request, "my_lists.html")

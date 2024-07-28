@@ -13,7 +13,12 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Superlists</a>
           {% if user.email %}
-            <ul>
+            <ul class="nav navbar-nav navbar-left">
+              <li>
+                <a href="{% url 'my_lists' user.email %}">My lists</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
               <span class="navbar-text">Logged in as {{ user.email }}</span>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
@@ -52,27 +57,33 @@
 
             {% endblock %}
           </h1>
-          <form class="was-validated"
-            method="POST"
-            action="{% block form_action %}
+          {% block list_form %}
+            <form class="was-validated"
+              method="POST"
+              action="{% block form_action %}
 
-            {% endblock %}">
-            {% csrf_token %}
+              {% endblock %}">
+              {% csrf_token %}
 
-            <input id="id_text" name="text" class="form-control
-                    form-control-lg
-                    {% if form.errors %}is-invalid{% endif %}" placeholder="Enter a to-do item" value="{{ form.text.value }}" aria-describedby="id_text_feedback" required />
+              <input id="id_text" name="text" class="form-control form-control-lg {% if form.errors %}is-invalid{% endif %}" placeholder="Enter a to-do item" value="{{ form.text.value }}" aria-describedby="id_text_feedback" required />
 
-            {% if form.errors %}
-              <div class="invalid-feedback">{{ form.errors.text.0 }}</div>
-            {% endif %}
-          </form>
+              {% if form.errors %}
+                <div class="invalid-feedback">{{ form.errors.text.0 }}</div>
+              {% endif %}
+            </form>
+          {% endblock %}
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-6">
           {% block table %}
 
+          {% endblock %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          {% block extra_content %}
           {% endblock %}
         </div>
       </div>
