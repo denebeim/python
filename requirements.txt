@@ -2,3 +2,5 @@ django<5
 requests
 gunicorn
 whitenoise
+fabric
+fabric==1.14.0
