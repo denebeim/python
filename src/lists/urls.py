@@ -12,5 +12,5 @@ urlpatterns = [
         views.view_list,
         name="view_list",
     ),
-    path("my_lists/<str:email>", views.my_lists, name="my_lists"),
+    path("my_lists/<str:email>/", views.my_lists, name="my_lists"),
 ]
