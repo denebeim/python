@@ -1,0 +1,6 @@
+projectKey=goat
+serverUrl=http://testing2:9000
+serverVersion=10.6.0.92116
+dashboardUrl=http://testing2:9000/dashboard?id=goat
+ceTaskId=f401f6db-e94f-4f09-ac0f-85cf5a6afb0b
+ceTaskUrl=http://testing2:9000/api/ce/task?id=f401f6db-e94f-4f09-ac0f-85cf5a6afb0b

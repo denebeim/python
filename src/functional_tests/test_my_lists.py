@@ -1,5 +1,6 @@
 from django.contrib.auth import BACKEND_SESSION_KEY, SESSION_KEY, get_user_model
 from django.contrib.sessions.backends.db import SessionStore
+from selenium.webdriver.common.by import By
 
 from superlists import settings
 
