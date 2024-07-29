@@ -9,11 +9,6 @@
         state: fixed
       become: true
 
-    - name: Erase archive_path
-      ansible.builtin.file:
-        name: /tmp/superlists-img.tar
-        state: absent
-
     - name: Export container image locally
       community.docker.docker_image:
         name: superlists
@@ -27,7 +22,6 @@
         src: /tmp/superlists-img.tar
         dest: /tmp/superlists-img.tar
         mode: ug=rw,o=r
-        backup: true
 
     - name: Import container image on server
       community.docker.docker_image:
@@ -35,7 +29,6 @@
         load_path: /tmp/superlists-img.tar
         source: load
         state: present
-        force_source: true
       vars:
         ansible_command_timeout: 60
       become: true
@@ -49,7 +42,6 @@
       vars:
         host: "{{ inventory_hostname_short }}"
         secret_key: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}"
-        email_password: "{{ lookup('ansible.builtin.env', 'EMAIL_PASSWORD') }}"
       become: true
 
     - name: Ensure db.sqlite3 exists outide container
@@ -57,13 +49,6 @@
         path: /home/ansible/db.sqlite3
         state: touch
         mode: u=rw,g=r,o-rwx
-
-    - name: Stop container
-      community.docker.docker_container:
-        name: superlists
-        image: superlists
-        state: stopped
-      become: true
 
     - name: Run container
       community.docker.docker_container:

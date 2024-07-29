@@ -1,6 +1,4 @@
-django<5
+django
 requests
 gunicorn
 whitenoise
-fabric
-fabric==1.14.0
