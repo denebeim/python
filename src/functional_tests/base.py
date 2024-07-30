@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.common import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException
 
 MAX_WAIT = 5
 
@@ -37,9 +38,9 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def add_list_item(self, item_text):
         try:
-            num_rows = len(self.browser.find_element(By.ID, "id_list_table"))
-        except:
-            num_rows=0
+            num_rows = len([self.browser.find_element(By.ID, "id_list_table")])
+        except (NoSuchElementException, InvalidSelectorException):
+            num_rows = 0
         self.get_item_input_box().send_keys(item_text)
         self.get_item_input_box().send_keys(Keys.ENTER)
         item_number = num_rows + 1

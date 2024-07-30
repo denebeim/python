@@ -20,6 +20,8 @@ class List(models.Model):
 class Item(models.Model):
     text = models.TextField(default="")
     list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
 
     class Meta:
         unique_together = ("list", "text")
+        ordering = ["id"]
