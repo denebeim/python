@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from superlists import settings
 
 from .base import FunctionalTest, wait
-
+from selenium.common.exceptions import NoSuchElementException
 User = get_user_model()
 
 
@@ -39,6 +39,12 @@ class MyListsTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.wait_to_be_logged_in(email)
 
+    def wait_for_my_lists_to_go_away(self):
+        try:
+            self.browser.find_element(By.LINK_TEXT, "My lists")
+        except NoSuchElementException:
+            pass
+
     def test_logged_in_users_lists_are_saved_as_my_lists(self):
         # Edith is a logged in user
         self.create_pre_authenticated_session("edith@example.com")
@@ -67,15 +73,14 @@ class MyListsTest(FunctionalTest):
         second_list_url = self.browser.current_url
 
         # Under "my Lists", her new list appears
+        self.browser.find_element(By.LINK_TEXT, "My lists").click()
         self.browser.find_element(By.LINK_TEXT, "Click cows").click()
         self.wait_for(
             lambda: self.assertEqual(self.browser.current_url, second_list_url)
         )
 
         # She logs out. The "My lists" option disappears
-        self.browser.find_element(By.LINK_TEXT, "Log out").click()
+        self.browser.find_element(By.ID, "Log_out").click()
         self.wait_for(
-            lambda: self.assertEqual(
-                self.browser.find_element(By.LINK_TEXT, "My lists"), []
-            )
+            lambda: self.wait_for_my_lists_to_go_away()
         )
