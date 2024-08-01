@@ -1,11 +1,12 @@
 from django.contrib.auth import BACKEND_SESSION_KEY, SESSION_KEY, get_user_model
 from django.contrib.sessions.backends.db import SessionStore
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from superlists import settings
 
 from .base import FunctionalTest, wait
-from selenium.common.exceptions import NoSuchElementException
+
 User = get_user_model()
 
 
@@ -27,17 +28,6 @@ class MyListsTest(FunctionalTest):
                 path="/",
             )
         )
-
-    @wait
-    def test_logged_in_users_lists_are_saved_as_my_lists(self):
-        email = "edith@example.com"
-        self.browser.get(self.live_server_url)
-        self.wait_to_be_logged_out(email)
-
-        # Edith is a logged-in user
-        self.create_pre_authenticated_session(email)
-        self.browser.get(self.live_server_url)
-        self.wait_to_be_logged_in(email)
 
     def wait_for_my_lists_to_go_away(self):
         try:
@@ -81,6 +71,4 @@ class MyListsTest(FunctionalTest):
 
         # She logs out. The "My lists" option disappears
         self.browser.find_element(By.ID, "Log_out").click()
-        self.wait_for(
-            lambda: self.wait_for_my_lists_to_go_away()
-        )
+        self.wait_for(lambda: self.wait_for_my_lists_to_go_away())
