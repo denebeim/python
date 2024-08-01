@@ -7,4 +7,4 @@ pip install -r requirements.txt
 python src/manage.py test lists accounts
 python src/manage.py test functional_tests
 ```
-* I also needed to add selenium to the requirements.txt file
+* I also needed to add selenium to the requirements.txt file.  Or continue reading the book since the other two problems were covered in it.  That's a me thing though, when a test fails I'll obsess over debugging it.
