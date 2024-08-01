@@ -1,0 +1,1 @@
+* on jenkins global tools configuration.  It seems to be missing virtualenv.  I had to install it with apt.
