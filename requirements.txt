@@ -2,4 +2,3 @@ django
 requests
 gunicorn
 whitenoise
-selenium==4.23.1
