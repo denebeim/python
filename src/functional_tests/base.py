@@ -1,7 +1,9 @@
 import datetime
 import os
-from pydoc import classname
 import time
+
+from django.contrib.auth import SESSION_KEY, BACKEND_SESSION_KEY, get_user_model
+from django.contrib.sessions.backends.db import SessionStore
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
@@ -9,6 +11,10 @@ from selenium.common import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException
+
+from superlists import settings
+
+User = get_user_model()
 
 MAX_WAIT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
@@ -51,7 +57,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         super().tearDown
 
     def _test_has_failed(self):
-        return len(self._outcome.result.failures)+len(self._outcome.result.errors)
+        return len(self._outcome.result.failures) + len(self._outcome.result.errors)
 
     def take_screenshot(self):
         filename = self._get_filename() + ".png"
@@ -66,12 +72,12 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def _get_filename(self):
         timestamp = datetime.datetime.now().isoformat().replace(":", ".")[:19]
-        return '{folder}/{classname}.{method}-window{windowid}-{timestamp}'.format(
+        return "{folder}/{classname}.{method}-window{windowid}-{timestamp}".format(
             folder=SCREEN_DUMP_LOCATION,
             classname=self.__class__.__name__,
             method=self._testMethodName,
             windowid=self._windowid,
-            timestamp=timestamp
+            timestamp=timestamp,
         )
 
     def add_list_item(self, item_text):
@@ -108,3 +114,21 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.wait_for(lambda: self.browser.find_element(By.NAME, "email"))
         navbar = self.browser.find_element(By.CSS_SELECTOR, ".navbar")
         self.assertNotIn(email, navbar.text)
+
+    @wait
+    def create_pre_authenticated_session(self, email):
+        user = User.objects.create(email=email)
+        session = SessionStore()
+        session[SESSION_KEY] = user.pk
+        session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[0]
+        session.save()
+        ## to set a cookie we need to first visit the domain,
+        ## 404 pages load the quickest!
+        self.browser.get(self.live_server_url + "/404_no_such_url/")
+        self.browser.add_cookie(
+            dict(
+                name=settings.SESSION_COOKIE_NAME,
+                value=session.session_key,
+                path="/",
+            )
+        )
