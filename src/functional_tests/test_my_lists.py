@@ -3,6 +3,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from .base import FunctionalTest
+from .list_page import ListPage
 
 
 class MyListsTest(FunctionalTest):

@@ -42,7 +42,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser = webdriver.Firefox()
         test_server = os.environ.get("TEST_SERVER")
         if test_server:
-            self.live_server_url = "http://" + test_server
+            self.live_server_url = "http://" + test_server # NOSONAR
 
     def tearDown(self):
         if self._test_has_failed():
@@ -54,7 +54,7 @@ class FunctionalTest(StaticLiveServerTestCase):
                 self.take_screenshot()
                 self.dump_html()
         self.browser.quit()
-        super().tearDown
+        super().tearDown()
 
     def _test_has_failed(self):
         return len(self._outcome.result.failures) + len(self._outcome.result.errors)
@@ -81,6 +81,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         )
 
     def add_list_item(self, item_text):
+
         try:
             num_rows = len([self.browser.find_element(By.ID, "id_list_table")])
         except (NoSuchElementException, InvalidSelectorException):

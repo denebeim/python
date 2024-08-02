@@ -2,6 +2,7 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from .base import FunctionalTest
+from .list_page import ListPage
 
 
 class ItemValidationTest(FunctionalTest):
