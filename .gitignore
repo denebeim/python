@@ -7,7 +7,8 @@ ansible.cfg
 .vscode
 goat.iml
 screendumps
- 
+node_modules
+
 collections
 
 # Byte-compiled / optimized / DLL files
