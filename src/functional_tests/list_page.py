@@ -17,12 +17,12 @@ class ListPage(object):
         self.test.assertIn(expected_row_text, [row.text for row in rows])
 
     def get_item_input_box(self):
-        return self.test.browser.find_elements(By.ID, 'id_text')
+        return self.test.browser.find_element(By.ID, 'id_text')
 
     def add_list_item(self, item_text):
         new_item_no = len(self.get_table_rows()) + 1
-        self.get_item_input_box()[0].send_keys(item_text)
-        self.get_item_input_box()[0].send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys(item_text)
+        self.get_item_input_box().send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table(item_text, new_item_no)
         return self
 
