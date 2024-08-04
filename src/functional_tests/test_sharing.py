@@ -1,8 +1,8 @@
 from selenium import webdriver
-from .base import FunctionalTest
-from selenium.webdriver.common.by import By
 
+from .base import FunctionalTest
 from .list_page import ListPage
+from .my_lists_page import MyListsPage
 
 OTHER_USER = 'oniciferous@example.com'
 TEST_USER = 'edith@example.com'
@@ -44,3 +44,21 @@ class SharingClass(FunctionalTest):
         # She shares her list.
         # The page updates to say that it's shared with Oniciferous:
         list_page.share_list_with(OTHER_USER)
+
+        # Oniciferous now goes to the lists page with his browser
+        self.browser = oni_browser
+        MyListsPage(self).go_to_my_lists_page()
+
+        # on the lists page, Onciferous can see there's a link to Edith's list
+        self.wait_for(lambda: self.assertEqual(
+            list_page.get_list_owner(),
+            'edith@example.com'
+        ))
+
+        # He adds an item to the list
+        list_page.add_list_item('Hi Edith')
+
+        # When Edith refreshes the page, she sees Oniciferous's addition
+        self.browser = edith_browser
+        self.browser.refresh()
+        list_page.wait_for_row_in_list_table('Hi Edith!', 1)
