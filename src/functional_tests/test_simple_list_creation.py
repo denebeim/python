@@ -2,6 +2,7 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from .base import FunctionalTest
+from .list_page import ListPage
 
 
 class NewVisitorTest(FunctionalTest):
@@ -16,7 +17,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn("To-Do", header_text)
 
         # She is invited to enter a to-do item straight away
-        inputbox = self.get_item_input_box()
+        inputbox = ListPage(self).get_item_input_box()
         self.assertEqual(inputbox.get_attribute("placeholder"), "Enter a to-do item")
 
         # She types "Buy peacock feathers" into a text box.
@@ -27,17 +28,19 @@ class NewVisitorTest(FunctionalTest):
         # "1: Buy peacock feathers" as an item in a to-do list
         inputbox.send_keys(Keys.ENTER)
 
-        self.wait_for_row_in_list_table("1: Buy peacock feathers")
+        ListPage(self).wait_for_row_in_list_table("1: Buy peacock feathers")
 
         # There is still a text box inviting her to add another item.
         # Sh enters "Use peacock feathers to make a fly" (Edith is very methodical)
-        inputbox = self.get_item_input_box()
+        inputbox = ListPage(self).get_item_input_box()
         inputbox.send_keys("Use peacock feathers to make a fly")
         inputbox.send_keys(Keys.ENTER)
 
         # The page updates again and now shows both items on her list
-        self.wait_for_row_in_list_table("1: Buy peacock feathers")
-        self.wait_for_row_in_list_table("2: Use peacock feathers to make a fly")
+        ListPage(self).wait_for_row_in_list_table("1: Buy peacock feathers")
+        ListPage(self).wait_for_row_in_list_table(
+            "2: Use peacock feathers to make a fly"
+        )
 
         # Satisfied, she goes back to sleep
 
@@ -45,11 +48,11 @@ class NewVisitorTest(FunctionalTest):
         # Edith starts a new to-do list
         self.browser.get(self.live_server_url)
 
-        inputbox = self.get_item_input_box()
+        inputbox = ListPage(self).get_item_input_box()
         inputbox.send_keys("Buy peacock feathers")
         inputbox.send_keys(Keys.ENTER)
 
-        self.wait_for_row_in_list_table("1: Buy peacock feathers")
+        ListPage(self).wait_for_row_in_list_table("1: Buy peacock feathers")
 
         # She notices that her list has a unique URL
         edith_list_url = self.browser.current_url
@@ -68,10 +71,10 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn("make a fly", page_text)
 
         # Francis starts a new list by entering a new item.  He is less interesting than Edith
-        inputbox = self.get_item_input_box()
+        inputbox = ListPage(self).get_item_input_box()
         inputbox.send_keys("Buy milk")
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table("1: Buy milk")
+        ListPage(self).wait_for_row_in_list_table("1: Buy milk")
 
         # Again there is no trace of Edith's list
         page_text = self.browser.find_element(By.TAG_NAME, "body").text

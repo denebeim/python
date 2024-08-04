@@ -2,17 +2,15 @@ import datetime
 import os
 import time
 
-from django.contrib.auth import SESSION_KEY, BACKEND_SESSION_KEY, get_user_model
+from django.contrib.auth import BACKEND_SESSION_KEY, SESSION_KEY, get_user_model
 from django.contrib.sessions.backends.db import SessionStore
-
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common import WebDriverException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException
 
 from superlists import settings
+
 
 User = get_user_model()
 
@@ -42,7 +40,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser = webdriver.Firefox()
         test_server = os.environ.get("TEST_SERVER")
         if test_server:
-            self.live_server_url = "http://" + test_server # NOSONAR
+            self.live_server_url = "http://" + test_server  # NOSONAR
 
     def tearDown(self):
         if self._test_has_failed():
@@ -80,31 +78,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             timestamp=timestamp,
         )
 
-    def add_list_item(self, item_text):
-
-        try:
-            num_rows = len([self.browser.find_element(By.ID, "id_list_table")])
-        except (NoSuchElementException, InvalidSelectorException):
-            num_rows = 0
-        self.get_item_input_box().send_keys(item_text)
-        self.get_item_input_box().send_keys(Keys.ENTER)
-        item_number = num_rows + 1
-        self.wait_for_row_in_list_table(f"{item_number}: {item_text}")
-
     @wait
     def wait_for(self, fn):
         return fn()
-
-    def row_in_list_table(self, row_text):
-        table = self.browser.find_element(By.ID, "id_list_table")
-        rows = table.find_elements(By.TAG_NAME, "tr")
-        self.assertIn(row_text, [row.text for row in rows])
-
-    def wait_for_row_in_list_table(self, row_text):
-        return self.wait_for(lambda: self.row_in_list_table(row_text))
-
-    def get_item_input_box(self):
-        return self.browser.find_element(By.ID, "id_text")
 
     def wait_to_be_logged_in(self, email):
         self.wait_for(lambda: self.browser.find_element(By.ID, "Log_out"))
