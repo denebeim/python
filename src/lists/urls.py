@@ -13,4 +13,5 @@ urlpatterns = [
         name="view_list",
     ),
     path("my_lists/<str:email>/", views.my_lists, name="my_lists"),
+    path("<int:list_id>/share", views.list_sharee, name="sharee"),
 ]

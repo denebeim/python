@@ -150,3 +150,8 @@ class MyListsTest(TestCase):
         list_=List.objects.first()
         self.assertEqual(list_.owner, user)
 
+class ShareListTest(TestCase):
+    def test_post_redirects_to_lists_page(self):
+        _list=List.objects.create()
+        response = self.client.post(f"/lists/{_list.id}/share")
+        self.assertRedirects(response, f"/lists/{_list.id}/")
