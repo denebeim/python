@@ -19,9 +19,25 @@
 {% endblock %}
 
 {% block share_form %}
-<form action="{% url 'view_list' list.id %}"
-  method="POST">
-  {% csrf_token %}
-  <input id="id_sharee_input" name="sharee" class="form-control" placeholder="your-friend@example.com" />
-</form>
+<div class="list-sharee">
+  <table class="table" id="id_sharee_table">
+    <tr>
+      <th>List shared with:</th>
+      <th>Share This list</th>
+    </tr>
+    <tr>
+      <td>
+        {% for shar in list.sharee.all %}
+          <ul>{{ shar }}</ul>
+        {% endfor %}
+      </td>
+      <td>
+        <form action="{% url 'view_list' list.id %}" method="POST">
+          {% csrf_token %}
+          <input id="id_sharee_input" name="sharee" class="form-control" placeholder="your-friend@example.com" />
+        </form>
+      </td>
+    </tr>
+  </table>
+
 {% endblock %}
