@@ -45,4 +45,7 @@ def my_lists(request, email):
 
 def list_sharee(request,list_id):
     our_list = List.objects.get(id=list_id)
+    if request.method=="POST":
+        our_list.shared_with.add(request.POST["sharee"])
+        
     return redirect(to=our_list,permanent=False)

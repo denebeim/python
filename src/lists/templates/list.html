@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block form_action %}
-{% url 'view_list' list.id %}
+  {% url 'view_list' list.id %}
 {% endblock %}
 
 {% block table %}
@@ -16,5 +16,12 @@
       </tr>
     {% endfor %}
   </table>
+{% endblock %}
+
+{% block share_form %}
+<form action="{% url 'view_list' list.id %}"
+  method="POST">
+  {% csrf_token %}
   <input id="id_sharee_input" name="sharee" class="form-control" placeholder="your-friend@example.com" />
+</form>
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -18,6 +19,12 @@ class ListModelTest(TestCase):
 
     def test_list_owner_is_optional(self):
         List.objects.create()  # should not raise
+
+    def test_list_can_be_shared(self):
+        user: AbstractUser = User.objects.create(email="c@d.com")
+        list_: List = List.objects.create()
+        list_.shared_with.add(user.email)
+        self.assertIn(user, list_.shared_with.all())
 
 
 class ItemModelTest(TestCase):

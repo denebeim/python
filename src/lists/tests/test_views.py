@@ -10,6 +10,8 @@ from lists.forms import (
 )
 from lists.models import Item, List
 
+TEST_USER = "a@b.com"
+OTHER_USER = "c@d.com"
 User = get_user_model()
 
 
@@ -96,7 +98,7 @@ class ListViewTest(TestCase):
     def post_invalid_input(self):
         mylist = List.objects.create()
         return self.client.post(
-            f"/lists/{ mylist.id }/",
+            f"/lists/{mylist.id}/",
             data={"text": ""},
         )
 
@@ -133,7 +135,7 @@ class ListViewTest(TestCase):
 
 class MyListsTest(TestCase):
     def test_my_lists_url_renders_my_lists_template(self):
-        User.objects.create(email='a@b.com')
+        User.objects.create(email=TEST_USER)
         response = self.client.get("/lists/my_lists/a@b.com/")
         self.assertTemplateUsed(response, "my_lists.html")
 
@@ -142,16 +144,25 @@ class MyListsTest(TestCase):
         correct_user = User.objects.create(email="a@b.com")
         response = self.client.get("/lists/my_lists/a@b.com/")
         self.assertEqual(response.context["owner"], correct_user)
-        
+
     def test_list_owner_is_saved_if_user_is_authenticated(self):
-        user=User.objects.create(email='a@b.com')
+        user = User.objects.create(email=TEST_USER)
         self.client.force_login(user)
-        self.client.post('/lists/new',data={'text':'new item'})
-        list_=List.objects.first()
+        self.client.post("/lists/new", data={"text": "new item"})
+        list_ = List.objects.first()
         self.assertEqual(list_.owner, user)
+
 
 class ShareListTest(TestCase):
     def test_post_redirects_to_lists_page(self):
-        _list=List.objects.create()
-        response = self.client.post(f"/lists/{_list.id}/share")
+        _list = List.objects.create()
+        response = self.client.get(f"/lists/{_list.id}/share")
         self.assertRedirects(response, f"/lists/{_list.id}/")
+
+    def test_user_posts_list_to_share_with_friend(self):
+        user = User.objects.create(email=OTHER_USER)
+        _list = List.objects.create()
+        self.client.post(
+            f"/lists/{_list.id}/share", data={"sharee": user.email}
+        )
+        self.assertIn(user,_list.shared_with.all())
